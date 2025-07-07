@@ -5,8 +5,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
-import { neon } from "@neondatabase/serverless";
-import { drizzle } from "drizzle-orm/neon-http";
+import postgres from "postgres";
+import { drizzle } from "drizzle-orm/postgres-js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,7 +20,7 @@ if (!connectionString) {
   throw new Error("DATABASE_URL environment variable is required");
 }
 
-const sql = neon(connectionString);
+const sql = postgres(connectionString);
 const db = drizzle(sql);
 
 // Session configuration
